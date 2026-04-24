@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu Plata, Tu Reglas — Curso de Finanzas Personales en Argentina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --bg2: #13161e;
+    --bg3: #1a1e2a;
+    --surface: #1e2330;
+    --surface2: #252a38;
+    --border: #2e3447;
+    --text: #e8eaf0;
+    --text2: #9aa3bc;
+    --text3: #5c6480;
+
+    /* Accent palette */
+    --gold: #f5c842;
+    --gold-dim: #c9a22a;
+    --orange: #f07d3a;
+    --orange-dim: #c4622a;
+    --red: #e8445a;
+    --red-dim: #a8293c;
+    --green: #3dd68c;
+    --green-dim: #27a066;
+    --blue: #4f9cf9;
+    --blue-dim: #2e6ec9;
+    --purple: #a78bfa;
+
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --nav-w: 260px;
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ═══ SIDEBAR NAV ═══ */
+  #sidebar {
+    width: var(--nav-w);
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+  }
+
+  #sidebar::-webkit-scrollbar { width: 4px; }
+  #sidebar::-webkit-scrollbar-track { background: transparent; }
+  #sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .sidebar-logo {
+    padding: 1.5rem 1.4rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-logo .logo-badge {
+    background: var(--gold);
+    color: #0d0f14;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .sidebar-logo h2 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .sidebar-logo p {
+    font-size: 0.72rem;
+    color: var(--text3);
+    margin-top: 0.25rem;
+  }
+
+  .progress-bar-wrap {
+    padding: 0.8rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .progress-label {
+    font-size: 0.68rem;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .progress-track {
+    height: 4px;
+    background: var(--surface);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--orange));
+    border-radius: 99px;
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  nav ul { list-style: none; padding: 0.6rem 0; }
+  nav ul li a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.4rem;
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 0.82rem;
+    font-weight: 400;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+    line-height: 1.3;
+  }
+  nav ul li a:hover, nav ul li a.active {
+    color: var(--text);
+    background: var(--surface);
+    border-left-color: var(--gold);
+  }
+  nav ul li a .nav-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+  }
+  nav ul li a .nav-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text3);
+    flex-shrink: 0;
+  }
+
+  .nav-section-label {
+    font-size: 0.62rem;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 1rem 1.4rem 0.3rem;
+    font-weight: 500;
+  }
+
+  /* ═══ MAIN CONTENT ═══ */
+  main {
+    margin-left: var(--nav-w);
+    flex: 1;
+    max-width: 900px;
+    padding: 0 2rem 6rem;
+  }
+
+  /* ═══ HERO ═══ */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 0 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(245,200,66,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 28px;
+    height: 2px;
+    background: var(--gold);
+    display: inline-block;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.08;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-title .accent { color: var(--gold); }
+  .hero-title .accent-orange { color: var(--orange); }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text2);
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .hero-stat-item { }
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 0.78rem;
+    color: var(--text3);
+    margin-top: 0.2rem;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--gold);
+    color: #0d0f14;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.85rem 1.8rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .hero-cta:hover {
+    background: #ffd84a;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 30px rgba(245,200,66,0.25);
+  }
+
+  /* ═══ SECTION STRUCTURE ═══ */
+  .module-section {
+    padding: 5rem 0;
+    border-bottom: 1px solid var(--border);
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .module-header {
+    margin-bottom: 2.5rem;
+  }
+  .module-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .module-num::after {
+    content: '';
+    flex: 1;
+    max-width: 40px;
+    height: 1px;
+    background: var(--gold-dim);
+  }
+  .module-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.8rem;
+  }
+  .module-intro {
+    font-size: 1.05rem;
+    color: var(--text2);
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  /* ═══ CARDS ═══ */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .card-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .card-icon { font-size: 1.8rem; margin-bottom: 0.7rem; }
+  .card h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .card p { font-size: 0.87rem; color: var(--text2); line-height: 1.6; }
+
+  /* Accent cards */
+  .card-gold { border-color: var(--gold-dim); background: rgba(245,200,66,0.05); }
+  .card-red { border-color: var(--red-dim); background: rgba(232,68,90,0.05); }
+  .card-green { border-color: var(--green-dim); background: rgba(61,214,140,0.05); }
+  .card-orange { border-color: var(--orange-dim); background: rgba(240,125,58,0.05); }
+  .card-blue { border-color: var(--blue-dim); background: rgba(79,156,249,0.05); }
+
+  /* ═══ HIGHLIGHT BOX ═══ */
+  .highlight-box {
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.8rem;
+    margin: 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .highlight-box::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+  }
+  .hb-gold { background: rgba(245,200,66,0.07); border: 1px solid rgba(245,200,66,0.25); }
+  .hb-gold::before { background: var(--gold); }
+  .hb-red { background: rgba(232,68,90,0.07); border: 1px solid rgba(232,68,90,0.25); }
+  .hb-red::before { background: var(--red); }
+  .hb-green { background: rgba(61,214,140,0.07); border: 1px solid rgba(61,214,140,0.25); }
+  .hb-green::before { background: var(--green); }
+  .hb-orange { background: rgba(240,125,58,0.07); border: 1px solid rgba(240,125,58,0.25); }
+  .hb-orange::before { background: var(--orange); }
+
+  .highlight-box .hb-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.4rem;
+  }
+  .hb-gold .hb-label { color: var(--gold); }
+  .hb-red .hb-label { color: var(--red); }
+  .hb-green .hb-label { color: var(--green); }
+  .hb-orange .hb-label { color: var(--orange); }
+
+  .highlight-box blockquote {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .hb-gold blockquote { color: var(--gold); }
+  .hb-red blockquote { color: var(--red); }
+
+  .highlight-box p { font-size: 0.9rem; color: var(--text2); margin-top: 0.5rem; }
+
+  /* ═══ COMPARISON BLOCKS ═══ */
+  .compare-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .compare-bad {
+    background: rgba(232,68,90,0.06);
+    border: 1px solid rgba(232,68,90,0.3);
+    border-radius: var(--radius-lg);
+    padding: 1.3rem;
+  }
+  .compare-good {
+    background: rgba(61,214,140,0.06);
+    border: 1px solid rgba(61,214,140,0.3);
+    border-radius: var(--radius-lg);
+    padding: 1.3rem;
+  }
+  .compare-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .compare-bad .compare-label { color: var(--red); }
+  .compare-good .compare-label { color: var(--green); }
+  .compare-bad .compare-num {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .compare-good .compare-num {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .compare-desc { font-size: 0.83rem; color: var(--text2); line-height: 1.5; }
+
+  /* ═══ IMPACT CARDS ═══ */
+  .impact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin: 1.2rem 0;
+  }
+  .impact-chip {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 0.45rem 1rem;
+    font-size: 0.82rem;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .impact-chip .ic-emoji { font-size: 1rem; }
+
+  /* ═══ BIG NUMBER ═══ */
+  .big-number-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  .big-number {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .big-number-label { font-size: 0.88rem; color: var(--text2); }
+
+  /* ═══ STEP LIST ═══ */
+  .step-list { margin: 1.5rem 0; }
+  .step-item {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: var(--gold);
+    color: #0d0f14;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.85rem;
+    margin-top: 0.1rem;
+  }
+  .step-content h5 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+  .step-content p { font-size: 0.88rem; color: var(--text2); line-height: 1.6; }
+
+  /* ═══ TABLE ═══ */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.88rem;
+  }
+  .data-table th {
+    background: var(--surface2);
+    color: var(--text2);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border-bottom: 2px solid var(--border);
+  }
+  .data-table td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: var(--surface); }
+  .td-red { color: var(--red) !important; font-weight: 600; }
+  .td-green { color: var(--green) !important; font-weight: 600; }
+  .td-gold { color: var(--gold) !important; font-weight: 600; }
+
+  /* ═══ REFLECTION BOX ═══ */
+  .reflection-box {
+    background: var(--bg3);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .reflection-box .rb-label {
+    font-size: 0.7rem;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .reflection-box ul { list-style: none; padding: 0; }
+  .reflection-box ul li {
+    padding: 0.5rem 0;
+    padding-left: 1.4rem;
+    position: relative;
+    font-size: 0.9rem;
+    color: var(--text2);
+    border-bottom: 1px solid var(--bg2);
+  }
+  .reflection-box ul li:last-child { border-bottom: none; }
+  .reflection-box ul li::before {
+    content: '?';
+    position: absolute;
+    left: 0;
+    color: var(--purple);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  /* ═══ CHECKLIST ═══ */
+  .checklist { list-style: none; padding: 0; margin: 1rem 0; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--text2);
+    border-bottom: 1px solid var(--bg3);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  /* ═══ FLOW DIAGRAM ═══ */
+  .flow-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+  .flow-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.7rem 1rem;
+    text-align: center;
+    flex: 1;
+    min-width: 110px;
+  }
+  .flow-item .fi-label { font-size: 0.7rem; color: var(--text3); margin-bottom: 0.2rem; }
+  .flow-item .fi-val {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .flow-arrow {
+    color: var(--text3);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  /* ═══ DANGER BADGE ═══ */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 99px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .badge-red { background: rgba(232,68,90,0.15); color: var(--red); border: 1px solid rgba(232,68,90,0.3); }
+  .badge-gold { background: rgba(245,200,66,0.12); color: var(--gold); border: 1px solid rgba(245,200,66,0.3); }
+  .badge-green { background: rgba(61,214,140,0.12); color: var(--green); border: 1px solid rgba(61,214,140,0.3); }
+  .badge-orange { background: rgba(240,125,58,0.12); color: var(--orange); border: 1px solid rgba(240,125,58,0.3); }
+
+  /* ═══ SECTION DIVIDER ═══ */
+  .s-divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+    margin: 2rem 0;
+  }
+
+  /* ═══ PILL TABS ═══ */
+  .subtopic-label {
+    font-size: 0.78rem;
+    color: var(--text3);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 2rem 0 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .subtopic-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ═══ FUGA ITEM ═══ */
+  .fuga-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 0.6rem;
+    transition: border-color 0.2s;
+  }
+  .fuga-item:hover { border-color: var(--red-dim); }
+  .fuga-emoji { font-size: 1.4rem; flex-shrink: 0; }
+  .fuga-name { font-size: 0.9rem; font-weight: 500; flex: 1; }
+  .fuga-amount { font-family: var(--font-mono); font-size: 0.88rem; color: var(--red); font-weight: 600; }
+
+  /* ═══ TIMELINE / SNOWBALL ═══ */
+  .timeline { margin: 1.5rem 0; }
+  .timeline-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0;
+  }
+  .timeline-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 2px solid var(--surface);
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+  }
+  .timeline-dot.td-bad { background: var(--red); }
+  .timeline-dot.td-good { background: var(--green); }
+  .timeline-connector {
+    width: 2px;
+    flex: 1;
+    background: var(--border);
+    min-height: 24px;
+  }
+  .timeline-content {
+    padding-bottom: 1.5rem;
+    flex: 1;
+  }
+  .timeline-content .tc-label {
+    font-size: 0.7rem;
+    color: var(--text3);
+    font-family: var(--font-mono);
+    margin-bottom: 0.2rem;
+  }
+  .timeline-content .tc-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+  .timeline-content .tc-desc { font-size: 0.85rem; color: var(--text2); }
+
+  /* ═══ HABIT CARD ═══ */
+  .habit-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .habit-card:hover { border-color: var(--gold-dim); transform: translateX(3px); }
+  .habit-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    width: 44px;
+    text-align: center;
+  }
+  .habit-content h5 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .habit-content p { font-size: 0.87rem; color: var(--text2); line-height: 1.6; }
+
+  /* ═══ FINAL CTA SECTION ═══ */
+  .final-section {
+    padding: 5rem 0 3rem;
+    text-align: center;
+  }
+  .final-section h2 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+  .final-section p { font-size: 1rem; color: var(--text2); max-width: 480px; margin: 0 auto 2rem; }
+
+  /* ═══ MOBILE TOGGLE ═══ */
+  #mobile-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 200;
+    background: var(--gold);
+    color: #0d0f14;
+    border: none;
+    border-radius: var(--radius);
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 99;
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 760px) {
+    #sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+    #sidebar.open { transform: translateX(0); }
+    main { margin-left: 0; padding: 0 1.2rem 5rem; }
+    #mobile-toggle { display: flex; }
+    .overlay.show { display: block; }
+    .compare-wrap { grid-template-columns: 1fr; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ═══ UTILITY ═══ */
+  .text-gold { color: var(--gold); }
+  .text-red { color: var(--red); }
+  .text-green { color: var(--green); }
+  .text-orange { color: var(--orange); }
+  .text-blue { color: var(--blue); }
+  .font-display { font-family: var(--font-display); }
+  .font-mono { font-family: var(--font-mono); }
+  .fw-bold { font-weight: 700; }
+  .fs-sm { font-size: 0.85rem; }
+  .fs-xs { font-size: 0.75rem; }
+  .mt-1 { margin-top: 0.5rem; }
+  .mt-2 { margin-top: 1rem; }
+  .mt-3 { margin-top: 1.5rem; }
+  .mb-1 { margin-bottom: 0.5rem; }
+  .mb-2 { margin-bottom: 1rem; }
+  strong { font-weight: 600; color: var(--text); }
+</style>
+</head>
+<body>
+
+<button id="mobile-toggle" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ═══════════════ SIDEBAR ═══════════════ -->
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🇦🇷 Argentina 2026</div>
+    <h2>Tu Plata,<br>Tu Reglas</h2>
+    <p>Curso de Finanzas Personales</p>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span>Tu progreso</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+  <nav>
+    <div class="nav-section-label">Inicio</div>
+    <ul>
+      <li><a href="#hero" class="active"><span class="nav-icon">🏠</span>Introducción</a></li>
+    </ul>
+    <div class="nav-section-label">Módulos</div>
+    <ul>
+      <li><a href="#m1"><span class="nav-num">01</span><span class="nav-icon">📊</span>Organización del dinero</a></li>
+      <li><a href="#m2"><span class="nav-num">02</span><span class="nav-icon">💳</span>Tarjetas de crédito</a></li>
+      <li><a href="#m3"><span class="nav-num">03</span><span class="nav-icon">🏦</span>Créditos personales</a></li>
+      <li><a href="#m4"><span class="nav-num">04</span><span class="nav-icon">⚡</span>Préstamos rápidos</a></li>
+      <li><a href="#m5"><span class="nav-num">05</span><span class="nav-icon">🆘</span>Si no te alcanza</a></li>
+      <li><a href="#m6"><span class="nav-num">06</span><span class="nav-icon">🔢</span>Cuotas en Argentina</a></li>
+      <li><a href="#m7"><span class="nav-num">07</span><span class="nav-icon">🧠</span>Hábitos clave</a></li>
+      <li><a href="#m8"><span class="nav-num">08</span><span class="nav-icon">🛡️</span>Fondo de emergencia</a></li>
+      <li><a href="#m9"><span class="nav-num">09</span><span class="nav-icon">🔓</span>Salir de deudas</a></li>
+      <li><a href="#m10"><span class="nav-num">10</span><span class="nav-icon">⚙️</span>Tu sistema personal</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main>
+
+  <!-- ═══ HERO ═══ -->
+  <section id="hero">
+    <div class="hero-eyebrow">Finanzas personales · Argentina 2026</div>
+    <h1 class="hero-title">Tu <span class="accent">plata</span>,<br>tus <span class="accent-orange">reglas</span>.</h1>
+    <p class="hero-sub">
+      No necesitás ser economista ni leer libros de 400 páginas. Necesitás entender 10 cosas concretas que nadie te enseñó, y aplicarlas desde mañana.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">10</div>
+        <div class="hero-stat-label">Módulos prácticos</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">Contexto argentino</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">0</div>
+        <div class="hero-stat-label">Tecnicismos innecesarios</div>
+      </div>
+    </div>
+    <a href="#m1" class="hero-cta">Empezar ahora →</a>
+
+    <div class="highlight-box hb-gold mt-3">
+      <div class="hb-label">💡 La pregunta clave</div>
+      <blockquote>"¿Por qué cada mes sentís que trabajaste, pero la plata desapareció?"</blockquote>
+      <p>No es porque ganás poco. Es porque nadie te enseñó a manejar lo que ganás. Este curso cambia eso.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MÓDULO 1 ═══════════════ -->
+  <section id="m1" class="module-section">
+    <div class="module-header">
+      <div class="module-num">Módulo 01</div>
+      <h2 class="module-title">Organización del dinero:<br><span class="text-gold">el mapa de tu realidad</span></h2>
+      <p class="module-intro">Antes de ahorrar, antes de invertir, antes de todo: tenés que saber exactamente a dónde se va tu plata. Spoiler: hay fugas que probablemente ni recordás.</p>
+    </div>
+
+    <div class="subtopic-label">Los 3 tipos de gasto</div>
+    <div class="card-grid">
+      <div class="card card-blue">
+        <div class="card-icon">📌</div>
+        <h4 class="text-blue">Gastos fijos</h4>
+        <p>Los que sabés que van a llegar: alquiler, expensas, servicios, cuota del gimnasio. Son predecibles. Los podés planificar.</p>
+      </div>
+      <div class="card card-orange">
+        <div class="card-icon">🌊</div>
+        <h4 class="text-orange">Gastos variables</h4>
+        <p>Supermercado, ropa, salidas, combustible. Varían mes a mes. Son los más difíciles de controlar, pero también los más maleables.</p>
+      </div>
+      <div class="card card-red">
+        <div class="card-icon">👻</div>
+        <h4 class="text-red">Gastos invisibles</h4>
+        <p>Los más peligrosos. Suscripciones que olvidaste, cuotas de compras de hace 4 meses, el Rappi de medianoche. Pasan desapercibidos y se acumulan.</p>
+      </div>
+    </div>
+
+    <div class="subtopic-label">Caso real en Argentina — Ingreso: $1.400.000</div>
+    <div class="flow-wrap">
+      <div class="flow-item">
+        <div class="fi-label">Sueldo neto</div>
+        <div class="fi-val text-gold">$1.400.000</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">
+        <div class="fi-label">Gastos fijos</div>
+        <div class="fi-val text-blue">$650.000</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">
+        <div class="fi-label">Gastos variables</div>
+        <div class="fi-val text-orange">$480.000</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">
+        <div class="fi-label">¿Queda algo?</div>
+        <div class="fi-val text-red">$270.000</div>
+      </div>
+    </div>
+    <p class="fs-sm" style="color:var(--text3); margin-top: -0.5rem; margin-bottom:1.2rem;">→ Pero los gastos invisibles consumen $230.000 más. Resultado real: <strong class="text-red">$40.000 de sobra.</strong></p>
+
+    <div class="subtopic-label">🕳️ Las "fugas" más comunes en Argentina</div>
+
+    <div class="fuga-item">
+      <div class="fuga-emoji">📱</div>
+      <div class="fuga-name">Suscripciones digitales (Netflix, Spotify, apps)</div>
+      <div class="fuga-amount">~$45.000/mes</div>
+    </div>
+    <div class="fuga-item">
+      <div class="fuga-emoji">🛵</div>
+      <div class="fuga-name">Delivery y cafeterías (Rappi, PedidosYa, cafés)</div>
+      <div class="fuga-amount">~$80.000/mes</div>
+    </div>
+    <div class="fuga-item">
+      <div class="fuga-emoji">👗</div>
+      <div class="fuga-name">Cuotas acumuladas de ropa y tecnología</div>
+      <div class="fuga-amount">~$60.000/mes</div>
+    </div>
+    <div class="fuga-item">
+      <div class="fuga-emoji">🎰</div>
+      <div class="fuga-name">Gastos impulsivos (compras online de noche)</div>
+      <div class="fuga-amount">~$45.000/mes</div>
+    </div>
+
+    <div class="highlight-box hb-red mt-2">
+      <div class="hb-label">⚠️ La revelación incómoda</div>
+      <blockquote>"No te falta plata. Te faltan cuentas."</blockquote>
+      <p>La mayoría de las personas con problemas financieros no tienen un problema de ingresos — tienen un problema de visibilidad. No saben exactamente adónde va cada peso.</p>
+    </div>
+
+    <div class="subtopic-label">Cómo registrar gastos sin morir en el intento</div>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h5>Elegí UNA herramienta y no la cambies</h5>
+          <p>Una hoja de Google Sheets, una libreta, o la app Spendee. Lo que uses 10 minutos por semana vale más que la app perfecta que nunca abrís.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h5>Anotá todos los gastos del día siguiente de haberlos hecho</h5>
+          <p>No en el momento (impracticable). Al día siguiente, revisás el historial del home banking y las apps. Tardás 5 minutos.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h5>Categorizá simple: necesario / elegible / capricho</h5>
+          <p>No necesitás 15 categorías. Con estas 3 ya ves el patrón. Los "caprichos" acumulados suelen ser la mayor sorpresa.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h5>Una vez por semana: revisión de 10 minutos</h5>
+          <p>Domingo a la noche o lunes a la mañana. ¿Cuánto gasté? ¿Cuánto me queda? ¿Qué ajusto esta semana? No más que eso.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reflection-box">
+      <div class="rb-label">🪞 Preguntas para reflexionar</div>
+      <ul>
+        <li>¿Podés decir de memoria cuánto gastaste el mes pasado en delivery?</li>
+        <li>¿Cuántas suscripciones activas tenés hoy? ¿Las estás usando todas?</li>
+        <li>¿Cuántas cuotas activas tenés sumadas en todos tus medios de pago?</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MÓDULO 2 ═══════════════ -->
+  <section id="m2" class="module-section">
+    <div class="module-header">
+      <div class="module-num">Módulo 02</div>
+      <h2 class="module-title">Tarjetas de crédito:<br><span class="text-red">el arma de doble filo</span></h2>
+      <p class="module-intro">Usada bien, es una herramienta poderosa. Usada mal, es la forma más rápida de construir una deuda que crece sola. Entendé exactamente cómo funciona.</p>
+    </div>
+
+    <div class="highlight-box hb-gold">
+      <div class="hb-label">📌 Frase para grabarse</div>
+      <blockquote>"La tarjeta no es plata extra. Es tiempo prestado con interés."</blockquote>
+      <p>Cuando usás la tarjeta, no estás gastando plata que tenés. Estás gastando plata que vas a tener que tener el mes que viene.</p>
+    </div>
+
+    <div class="subtopic-label">Cómo funciona realmente una tarjeta</div>
+    <div class="card-grid">
+      <div class="card card-blue">
+        <div class="card-icon">📅</div>
+        <h4>Fecha de cierre</h4>
+        <p>El día en que "se corta" el período. Todo lo que compraste antes de esa fecha va a tu próximo resumen. Ejemplo: cierre el día 10 de cada mes.</p>
+      </div>
+      <div class="card card-orange">
+        <div class="card-icon">🗓️</div>
+        <h4>Fecha de vencimiento</h4>
+        <p>El día que tenés que pagar. Suele ser 20-25 días después del cierre. Ese es tu "período de gracia" — si pagás el total, no pagás intereses.</p>
+      </div>
+      <div class="card card-red">
+        <div class="card-icon">🔄</div>
+        <h4>Pago mínimo</h4>
+        <p>El engaño mejor diseñado del sistema financiero. Pagás poco pero la deuda no baja: los intereses del resto siguen corriendo. Ahí empieza la bola de nieve.</p>
+      </div>
+    </div>
+
+    <div class="subtopic-label">Simulación real — gasto en tarjeta: $200.000</div>
+    <div class="compare-wrap">
+      <div class="compare-bad">
+        <div class="compare-label">❌ Pagás el mínimo (10%)</div>
+        <div class="compare-num">$468.000</div>
+        <div class="compare-desc">Lo que terminás pagando en total si solo pagás el mínimo por 6 meses. Con una TNA de ~120% (CFT ~180%), esos $200.000 casi se duplican.</div>
+      </div>
+      <div class="compare-good">
+        <div class="compare-label">✓ Pagás el total</div>
+        <div class="compare-num">$200.000</div>
+        <div class="compare-desc">Lo que pagás si cancelás el saldo total en la fecha de vencimiento. Intereses pagados: $0. Así se usa bien la tarjeta.</div>
+      </div>
+    </div>
+
+    <div class="card card-red mt-2">
+      <h4 class="text-red mb-1">💥 Esos $268.000 extra equivalen a...</h4>
+      <div class="impact-row">
+        <div class="impact-chip"><span class="ic-emoji">🛒</span> 1 mes de supermercado completo</div>
+        <div class="impact-chip"><span class="ic-emoji">✈️</span> Un pasaje a Brasil</div>
+        <div class="impact-chip"><span class="ic-emoji">📱</span> Un celular gama media</div>
+        <div class="impact-chip"><span class="ic-emoji">💊</span> 3 meses de medicación crónica</div>
+      </div>
+      <p class="fs-sm mt-1" style="color:var(--text2);">Eso es lo que "donás" a la financiera por pagar el mínimo durante 6 meses.</p>
+    </div>
+
+    <div class="subtopic-label">La bola de nieve de la deuda — cómo crece</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-line"><div class="timeline-dot td-bad"></div><div class="timeline-connector"></div></div>
+        <div class="timeline-content">
+          <div class="tc-label">Mes 1</div>
+          <div class="tc-title">Usás $200.000 en la tarjeta</div>
+          <div class="tc-desc">Pagás el mínimo: $20.000. El resto genera intereses. Saldo pendiente: ~$190.000</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-line"><div class="timeline-dot td-bad"></div><div class="timeline-connector"></div></div>
+        <div class="timeline-content">
+          <div class="tc-label">Mes 2</div>
+          <div class="tc-title">Los intereses se capitalizan</div>
+          <div class="tc-desc">Con TNA 120%, el saldo ya llegó a ~$210.000. Pagás $21.000 mínimo. Seguís debiéndole más de lo original.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-line"><div class="timeline-dot td-bad"></div><div class="timeline-connector"></div></div>
+        <div class="timeline-content">
+          <div class="tc-label">Mes 3-6</div>
+          <div class="tc-title">Ya debés más de lo que gastaste</div>
+          <div class="tc-desc">La deuda creció un 40-50% sobre el original. Si encima seguís usando la tarjeta, el ciclo se reinicia. La bola se hizo más grande.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-line"><div class="timeline-dot"></div></div>
+        <div class="timeline-content">
+          <div class="tc-label">Sin fin visible</div>
+          <div class="tc-title">La sensación de no avanzar</div>
+          <div class="tc-desc">Cada mes pagás, pero la deuda no baja. Ese es exactamente el diseño del sistema. El mínimo garantiza que el banco gane, no vos.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subtopic-label">Cómo leer tu resumen de tarjeta</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Campo en el resumen</th>
+          <th>Qué significa realmente</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Saldo total</strong></td>
+          <td>Lo que debés si querés quedar en cero. El número que importa.</td>
+          <td><span class="badge badge-gold">⚠️ El que hay que pagar</span></td>
+        </tr>
+        <tr>
+          <td><strong>Pago mínimo</strong></td>
+          <td>Lo mínimo para no entrar en mora. Nunca es suficiente para bajar la deuda real.</td>
+          <td><span class="badge badge-red">🚨 Trampa disfrazada</span></td>
+        </tr>
+        <tr>
+          <td><strong>Intereses cobrados</strong></td>
+          <td>Lo que pagaste extra por no haber pagado el total el mes pasado.</td>
+          <td><span class="badge badge-red">💸 Plata regalada</span></td>
+        </tr>
+        <tr>
+          <td><strong>Cuotas activas</strong></td>
+          <td>El total de compromisos futuros que ya tomaste. Podés deber mucho más de lo que creés.</td>
+          <td><span class="badge badge-orange">🔍 Chequeá siempre</span></td>
+        </tr>
+        <tr>
+          <td><strong>CFT (Costo Financiero Total)</strong></td>
+          <td>El costo real anual incluyendo todo: intereses + comisiones + seguros. Siempre mayor que la TNA.</td>
+          <td><span class="badge badge-red">📊 La tasa real</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="subtopic-label">¿Cuándo usarla y cuándo no?</div>
+    <div class="compare-wrap">
+      <div class="compare-good">
+        <div class="compare-label">✅ Usala cuando...</div>
+        <div class="compare-desc" style="color:var(--text);">
+          <ul class="checklist">
+            <li>Podés pagar el total el mes que viene</li>
+            <li>Aprovechás cuotas sin interés reales</li>
+            <li>Ganás puntos o beneficios concretos</li>
+            <li>Usás el período de gracia como herramienta</li>
+          </ul>
+        </div>
+      </div>
+      <div class="compare-bad">
+        <div class="compare-label">❌ Evitala cuando...</div>
+        <div class="compare-desc" style="color:var(--text);">
+          <ul class="checklist" style="--green: var(--red)">
+            <li>Pagás el mínimo hace más de 2 meses</li>
+            <li>No sabés el total que debés hoy</li>
+            <li>Usás crédito para gastos básicos (comida)</li>
+            <li>Comprás en un impulso que no planeabas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box hb-gold mt-2">
+      <div class="hb-label">🧠 Pregunta filtro antes de pasar la tarjeta</div>
+      <blockquote>"Si lo tuvieras que pagar en efectivo, ¿lo comprarías igual?"</blockquote>
+      <p>Si la respuesta es no o dudás, esperá. La tarjeta muchas veces activa el impulso de gastar porque "la deuda se siente lejana". Ese gap psicológico es muy costoso.</p>
+    </div>
+
+    <div class="reflection-box">
+      <div class="rb-label">🪞 Preguntas antes de pasar la tarjeta</div>
+      <ul>
+        <li>¿Podría pagar el total el mes que viene sin ningún problema?</li>
+        <li>¿Cuántas cuotas activas tengo sumadas hoy en total?</li>
+        <li>¿Cuándo fue la última vez que pagué el saldo total y no el mínimo?</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MÓDULO 3 ═══════════════ -->
+  <section id="m3" class="module-section">
+    <div class="module-header">
+      <div class="module-num">Módulo 03</div>
+      <h2 class="module-title">Créditos personales:<br><span class="text-orange">sabé lo que estás firmando</span></h2>
+      <p class="module-intro">Un crédito bien usado puede ser una palanca. Mal usado, es un ancla que te frena durante meses o años. La diferencia está en una sola pregunta.</p>
+    </div>
+
+    <div class="subtopic-label">Simulación real — Banco: $500.000 a 12 meses</div>
+    <div class="card-grid">
+      <div class="card card-gold">
+        <div class="card-icon">📥</div>
+        <h4>Lo que recibís</h4>
+        <p class="text-gold fw-bold" style="font-size:1.5rem;">$500.000</p>
+        <p>En tu cuenta, disponibles hoy. Se siente bien. Pero eso es solo el principio.</p>
+      </div>
+      <div class="card card-red">
+        <div class="card-icon">📤</div>
+        <h4>Lo que devolvés</h4>
+        <p class="text-red fw-bold" style="font-size:1.5rem;">$900.000+</p>
+        <p>Con TNA ~80% y CFT ~120%, terminás pagando casi el doble. 12 cuotas de ~$75.000/mes.</p>
+      </div>
+    </div>
+
+    <div class="card card-red mt-1">
+      <h4 class="text-red mb-1">💥 Esos $400.000 de interés equivalen a...</h4>
+      <div class="impact-row">
+        <div class="impact-chip"><span class="ic-emoji">🛒</span> 2 meses de super completo</div>
+        <div class="impact-chip"><span class="ic-emoji">🎓</span> Un curso de capacitación</div>
+        <div class="impact-chip"><span class="ic-emoji">🏖️</span> Vacaciones de una semana</div>
+        <div class="impact-chip"><span class="ic-emoji">💻</span> Una notebook usada</div>
+      </div>
+    </div>
+
+    <div class="subtopic-label">¿Cuándo tiene sentido pedir un crédito?</div>
+    <div class="card-grid">
+      <div class="card card-green">
+        <div class="card-icon">✅</div>
+        <h4 class="text-green">Puede tener sentido</h4>
+        <ul class="checklist">
+          <li>Herramienta de trabajo que te genera ingresos</li>
+          <li>Estudio o capacitación con impacto real en tu sueldo</li>
+          <li>Consolidar deudas más caras (ej: tarjeta al 180% → crédito al 100%)</li>
+          <li>Reparación urgente que impide trabajar</li>
+        </ul>
+      </div>
+      <div class="card card-red">
+        <div class="card-icon">❌</div>
+        <h4 class="text-red">Nunca tiene sentido</h4>
+        <ul class="checklist" style="--green: var(--red)">
+          <li>Pagar el supermercado o la comida diaria</li>
+          <li>Vacaciones o gastos de consumo impulsivo</li>
+          <li>Cubrir gastos del mes pasado</li>
+          <li>Comprar algo que "está en oferta"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box hb-orange">
+      <div class="hb-label">🤔 La pregunta que hay que hacerse antes de firmar</div>
+      <blockquote>"¿Estoy construyendo algo con este dinero, o simplemente sosteniendo algo que no puedo pagar?"</blockquote>
+      <p>Si es lo segundo, el crédito no resuelve el problema. Solo lo pospone y lo hace más caro.</p>
+    </div>
+
+    <div class="highlight-box hb-red">
+      <div class="hb-label">🚨 Mito frecuente</div>
+      <blockquote>"¿Tiene sentido pedir un préstamo para ahorrar?"</blockquote>
+      <p><strong style="color:var(--red)">No. Nunca.</strong> Ningún instrumento de ahorro en Argentina rinde más de lo que cuesta un crédito personal. Pedís al 100% anual, los plazos fijos rinden al 40-60%. Siempre perdés. Si tenés deuda, primero cancelá. Después ahorrá.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MÓDULO 4 ═══════════════ -->
+  <section id="m4" class="module-section">
+    <div class="module-header">
+      <div class="module-num">Módulo 04</div>
+      <h2 class="module-title">Préstamos rápidos:<br><span class="text-red">la trampa más accesible</span></h2>
+      <p class="module-intro">Mercado Pago y similares te ofrecen plata en 30 segundos con 3 toques. Eso no es casualidad. La facilidad es el producto. El costo es el precio.</p>
+    </div>
+
+    <div class="highlight-box hb-red">
+      <div class="hb-label">⚡ El problema de los préstamos instantáneos</div>
+      <blockquote>"Cuanto más fácil es conseguirlo, más caro suele ser."</blockquote>
+      <p>La fricción cero está diseñada para que no pienses. La app sabe que si tardás 3 días en decidir, probablemente no lo sacás. Por eso lo hacen inmediato.</p>
+    </div>
+
+    <div class="subtopic-label">Caso real — Mercado Pago: $200.000 a 6 meses</div>
+    <div class="compare-wrap">
+      <div class="compare-bad">
+        <div class="compare-label">Lo que recibís</div>
+        <div class="compare-num">$200.000</div>
+        <div class="compare-desc">En tu cuenta de Mercado Pago, disponibles hoy. El CFT ronda el 220-280% anual en este tipo de productos.</div>
+      </div>
+      <div class="compare-bad" style="border-color: var(--orange); background: rgba(240,125,58,0.06);">
+        <div class="compare-label" style="color:var(--orange)">Lo que devolvés</div>
+        <div class="compare-num" style="color:var(--orange)">$320.000+</div>
+        <div class="compare-desc">6 cuotas de ~$53.000. Pagás un 60% más de lo que recibiste. En 6 meses.</div>
+      </div>
+    </div>
+
+    <div class="card card-red mt-1">
+      <h4 class="text-red mb-1">💥 Esos $120.000 de costo equivalen a...</h4>
+      <div class="impact-row">
+        <div class="impact-chip"><span class="ic-emoji">🛒</span> Medio mes de supermercado</div>
+        <div class="impact-chip"><span class="ic-emoji">👟</span> Un par de zapatillas de marca</div>
+        <div class="impact-chip"><span class="ic-emoji">📚</span> 4 meses de suscripción premium a varias apps</div>
+        <div class="impact-chip"><span class="ic-emoji">⛽</span> Varios llenos de tanque</div>
+      </div>
+    </div>
+
+    <div class="subtopic-label">Préstamo rápido vs Banco — comparativa</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Mercado Pago / Fintech</th>
+          <th>Banco tradicional</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Velocidad</td>
+          <td>⚡ 30 segundos</td>
+          <td>⏳ 24-72 hs</td>
+        </tr>
+        <tr>
+          <td>CFT anual</td>
+          <td class="td-red">~200-300%</td>
+          <td class="td-gold">~100-150%</td>
+        </tr>
+        <tr>
+          <td>Requisitos</td>
+          <td>Mínimos (solo historial MP)</td>
+          <td>Recibo de sueldo, cuenta</td>
+        </tr>
+        <tr>
+          <td>Montos</td>
+          <td>Menores (hasta ~$800.000)</td>
+          <td>Mayores (hasta varios millones)</td>
+        </tr>
+        <tr>
+          <td>Riesgo psicológico</td>
+          <td class="td-red">Muy alto (fricción cero)</td>
+          <td class="td-gold">Más bajo (proceso genera reflexión)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box hb-red">
+      <div class="hb-label">🛑 Frase para pausar antes de tocar "confirmar"</div>
+      <blockquote>"¿Puedo esperar 48 horas? Si sí, probablemente no lo necesito."</blockquote>
+      <p>Casi ninguna urgencia real dura menos de 48 horas. Si en dos días seguís necesitando el préstamo, al menos ya lo habrás pensado. Las decisiones tomadas en caliente siempre cuestan más.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MÓDULO 5 ═══════════════ -->
+  <section id="m5" class="module-section">
+    <div class="module-header">
+      <div class="module-num">Módulo 05</div>
+      <h2 class="module-title">Si no te alcanza:<br><span class="text-orange">sin empeorarlo con deuda</span></h2>
+      <p class="module-intro">Cuando los ingresos no alcanzan, la respuesta automática suele ser: pedir prestado. Eso cubre el mes pero hace que el próximo sea todavía peor. Hay otro camino.</p>
+    </div>
+
+    <div class="highlight-box hb-orange">
+      <div class="hb-label">⚠️ Lo que hay que entender primero</div>
+      <blockquote>"Cubrir un agujero con deuda no lo tapa. Lo agranda."</blockquote>
+      <p>Cada crédito que tomás para llegar a fin de mes implica que el mes que viene vas a tener menos plata disponible, porque parte de tu ingreso ya está comprometido a devolver lo que pediste.</p>
+    </div>
+
+    <div class="subtopic-label">El ciclo que hay que romper</div>
+    <div class="flow-wrap">
+      <div class="flow-item" style="border-color:var(--red-dim)">
+        <div class="fi-label">No alcanza</div>
+        <div class="fi-val text-red">Mes 1</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item" style="border-color:var(--orange-dim)">
+        <div class="fi-label">Pedís crédito</div>
+        <div class="fi-val text-orange">Mes 2</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item" style="border-color:var(--red-dim)">
+        <div class="fi-label">Devolvés + intereses</div>
+        <div class="fi-val text-red">Mes 3</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item" style="border-color:var(--red-dim)">
+        <div class="fi-label">Alcanza menos</div>
+        <div class="fi-val text-red">Mes 4</div>
+      </div>
+    </div>
+
+    <div class="subtopic-label">Alternativas concretas — paso a paso</div>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h5>Hacé un diagnóstico honesto en papel</h5>
+          <p>Escribí todos los ingresos y todos los gastos. No en tu cabeza: en papel o en pantalla. Muchas veces la solución aparece sola cuando ves los números juntos.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h5>Identificá qué podés pausar o eliminar temporalmente</h5>
+          <p>¿Qué suscripciones podés cancelar este mes? ¿Podés reducir delivery a 1 vez por semana? ¿Hay un gasto "fijo" que en realidad es opcional?</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h5>Negociá pagos antes de que venzan</h5>
+          <p>Si no podés pagar algo, llamá antes del vencimiento. Muchos proveedores (servicios, alquileres) prefieren un acuerdo antes que la morosidad. Siempre es mejor llamar que ignorar.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h5>Explorá ingresos extra (sin romantizarlo)</h5>
+          <p>¿Tenés una habilidad que podés cobrar? ¿Algo que no usás y podés vender? ¿Podés hacer horas extra o un trabajo puntual? No es para siempre — es para cubrir el bache mientras reorganizás.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h5>Si igual necesitás ayuda: elegí la fuente más barata</h5>
+          <p>Amigo/familiar sin interés → Banco → Fintech. Nunca al revés. Y acordate: pedir prestado a alguien de confianza es mejor que a una app que te cobra el 250% anual.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subtopic-label">Ideas concretas para ingresos extra en Argentina 2026</div>
+    <div class="card-grid-3">
+      <div class="card">
+        <div class="card-icon">💻</div>
+        <h4>Servicios freelance</h4>
+        <p>Diseño, redacción, datos, atención al cliente. Plataformas: Workana, Freelancer.com, Fiverr.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📦</div>
+        <h4>Venta de cosas en desuso</h4>
+        <p>Ropa, tecnología, muebles. MercadoLibre, grupos de Facebook, Wallapop. Rápido y sin inversión.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🚗</div>
+        <h4>Servicios de movilidad</h4>
+        <p>Uber, Cabify, delivery. Requiere tiempo pero es ingreso inmediato sin barreras de entrada.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📚</div>
+        <h4>Clases particulares</h4>
+        <p>Idiomas, materias, música, programación. Muy demandado. Podés empezar con conocidos.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🍕</div>
+        <h4>Venta de comida</h4>
+        <p>Viandas, repostería, productos caseros. Alta demanda y márgenes razonables si controlás costos.</p>
+      </div>
+    </div>
+
+    <div class="reflection-box">
+      <div class="rb-label">🪞 Preguntas para reflexionar</div>
+      <ul>
+        <li>¿Si eliminás 3 gastos no esenciales este mes, cuánto liberás?</li>
+        <li>¿Qué tenés que podrías vender hoy sin extrañar demasiado?</li>
+        <li>¿Hay algo que sabés hacer y que no estás cobrando?</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MÓDULO 6 ═══════════════ -->
+  <section id="m6" class="module-section">
+    <div class="module-header">
+      <div class="module-num">Módulo 06</div>
+      <h2 class="module-title">Cuotas en Argentina:<br><span class="text-gold">la aritmética que nadie hace</span></h2>
+      <p class="module-intro">En Argentina, las cuotas son casi una religión. Pero no siempre convienen. La inflación cambia todo el análisis, y entender cuándo te convienen es una ventaja enorme.</p>
+    </div>
+
+    <div class="highlight-box hb-gold">
+      <div class="hb-label">💡 El contexto clave</div>
+      <blockquote>"En Argentina, la inflación puede ser tu aliada o tu enemiga en las cuotas. Depende de cómo las usés."</blockquote>
+      <p>Si la inflación es alta y las cuotas son sin interés, estás pagando cada cuota con pesos que valen menos. Eso puede ser una ventaja real. Pero si las cuotas tienen interés, el juego cambia completamente.</p>
+    </div>
+
+    <div class="subtopic-label">Cuotas sin interés vs con interés — la diferencia que importa</div>
+    <div class="compare-wrap">
+      <div class="compare-good">
+        <div class="compare-label">✅ Cuotas SIN interés reales</div>
+        <div class="compare-num">$30.000/mes</div>
+        <div class="compare-desc">Un producto de $300.000 en 10 cuotas de $30.000. Si en 10 meses eso vale más por inflación, ganaste. Pero verificá que no haya "precio contado diferente".</div>
+      </div>
+      <div class="compare-bad">
+        <div class="compare-label">❌ Cuotas "sin interés" disfrazadas</div>
+        <div class="compare-num">$40.000/mes</div>
+        <div class="compare-desc">El comercio subió el precio de contado antes de ofrecerte las cuotas. Pagás $400.000 en total por algo que vale $300.000. El interés está ahí, solo que oculto.</div>
+      </div>
+    </div>
+
+    <div class="subtopic-label">Cómo saber si las cuotas te convienen — checklist</div>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h5>Preguntá el precio de contado</h5>
+          <p>¿Cuánto cuesta si pagás hoy, en efectivo? Si no hay diferencia con las cuotas, son realmente sin interés. Si el contado es menor, calculá la diferencia.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h5>Multiplicá la cuota por la cantidad</h5>
+          <p>Cuota × cantidad de cuotas = lo que pagás en total. Comparalo con el precio de contado. La diferencia es el costo real de las cuotas.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h5>Evaluá el impacto en tu flujo mensual</h5>
+          <p>Cada cuota que sumás es un compromiso futuro. ¿Tenés claro cuántas cuotas activas tenés hoy? Acumuladas, pueden asfixiar tu presupuesto.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subtopic-label">Ejemplo real — Celular $600.000</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Opción</th>
+          <th>Precio total</th>
+          <th>Cuota mensual</th>
+          <th>¿Conviene?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Contado efectivo</td>
+          <td class="td-green">$540.000</td>
+          <td>—</td>
+          <td><span class="badge badge-green">✓ Ahorrás $60k</span></td>
+        </tr>
+        <tr>
+          <td>12 cuotas sin interés</td>
+          <td class="td-gold">$600.000</td>
+          <td>$50.000</td>
+          <td><span class="badge badge-gold">⚠️ Depende</span></td>
+        </tr>
+        <tr>
+          <td>12 cuotas con interés (20%)</td>
+          <td class="td-red">$720.000</td>
+          <td>$60.000</td>
+          <td><span class="badge badge-red">✗ Pagás $180k más</span></td>
+        </tr>
+        <tr>
+          <td>24 cuotas (tarjeta)</td>
+          <td class="td-red">$900.000+</td>
+          <td>$37.500</td>
+          <td><span class="badge badge-red">✗ La cuota "baja" engaña</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box hb-red">
+      <div class="hb-label">🧠 El truco mental de la cuota</div>
+      <blockquote>"La cuota baja es el engaño más efectivo del marketing financiero."</blockquote>
+      <p>Una cuota de $37.500 parece manejable. Pero si multiplicás por 24, son $900.000. Nadie piensa en el total — piensan en "si me entra la cuota este mes". Y así acumulan deuda sin darse cuenta.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MÓDULO 7 ═══════════════ -->
+  <section id="m7" class="module-section">
+    <div class="module-header">
+      <div class="module-num">Módulo 07</div>
+      <h2 class="module-title">Hábitos financieros:<br><span class="text-green">pequeños cambios, gran diferencia</span></h2>
+      <p class="module-intro">No hay secreto ni fórmula mágica. La diferencia entre quien maneja bien el dinero y quien no, en la mayoría de los casos, son 5 o 6 hábitos simples aplicados consistentemente.</p>
+    </div>
+
+    <div class="habit-card">
+      <div class="habit-icon">📆</div>
+      <div class="habit-content">
+        <h5>Revisión semanal de 10 minutos</h5>
+        <p>Una vez por semana (mismo día, mismo momento), revisás el resumen de gastos de la semana. ¿Cómo va el mes? ¿Hay algo que salió de control? ¿Qué ajustás? No más de 10 minutos. Consistencia > perfección.</p>
+      </div>
+    </div>
+
+    <div class="habit-card">
+      <div class="habit-icon">⏸️</div>
+      <div class="habit-content">
+        <h5>La regla de las 48 horas para compras grandes</h5>
+        <p>Antes de hacer una compra que no planeabas (o mayor a tu umbral, por ejemplo $30.000), esperás 48 horas. Si en 2 días seguís queriendo comprarlo y podés pagarlo, adelante. Eliminás el 70% de las compras impulsivas.</p>
+      </div>
+    </div>
+
+    <div class="habit-card">
+      <div class="habit-icon">🔔</div>
+      <div class="habit-content">
+        <h5>Alertas y notificaciones activadas</h5>
+        <p>Activá las notificaciones de cada gasto con tu tarjeta o débito. Que cada transacción genere un ping. Esa fricción mínima hace que seas más consciente de cada gasto en tiempo real.</p>
+      </div>
+    </div>
+
+    <div class="habit-card">
+      <div class="habit-icon">🎯</div>
+      <div class="habit-content">
+        <h5>Un objetivo financiero visible</h5>
+        <p>Tener un objetivo concreto (una suma para el fondo de emergencia, un viaje, cambiar algo) y tenerlo visible (foto de fondo, post-it) cambia cómo tomás decisiones. Cada gasto innecesario compite con ese objetivo.</p>
+      </div>
+    </div>
+
+    <div class="habit-card">
+      <div class="habit-icon">🚫</div>
+      <div class="habit-content">
+        <h5>No decidas finanzas en caliente ni cansado</h5>
+        <p>El cerebro en modo urgencia, enojado, o agotado toma pésimas decisiones financieras. Si llegás de un día difícil y querés "comprarte algo para sentirte mejor", esperá al día siguiente. Casi siempre el impulso pasa.</p>
+      </div>
+    </div>
+
+    <div class="habit-card">
+      <div class="habit-icon">📵</div>
+      <div class="habit-content">
+        <h5>Desuscribite de los mails de ofertas</h5>
+        <p>Las newsletters de tiendas y promociones son máquinas de generar gastos no planeados. Desuscribirte tarda 2 minutos y reduce enormemente la exposición a estímulos de compra impulsiva.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box hb-green">
+      <div class="hb-label">💡 El efecto acumulado de hábitos pequeños</div>
+      <blockquote>"No se trata de un gran sacrificio. Se trata de muchas pequeñas decisiones mejores."</blockquote>
+      <p>Si aplicás la regla de 48 horas y eliminás solo 3 compras impulsivas de $20.000 por mes, en un año ahorraste $720.000. Sin sacrificio. Solo con fricción intencional.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MÓDULO 8 ═══════════════ -->
+  <section id="m8" class="module-section">
+    <div class="module-header">
+      <div class="module-num">Módulo 08</div>
+      <h2 class="module-title">Fondo de emergencia:<br><span class="text-blue">el colchón que salva todo</span></h2>
+      <p class="module-intro">No es ahorro para vacaciones. No es para caprichos. Es el dinero que hace que un gasto inesperado no destruya tu mes, tu tarjeta, y tu salud mental.</p>
+    </div>
+
+    <div class="highlight-box hb-gold">
+      <div class="hb-label">🛡️ ¿Para qué sirve exactamente?</div>
+      <blockquote>"El fondo de emergencia no te hace rico. Te evita quedarte pobre cuando algo sale mal."</blockquote>
+      <p>Sin él, cualquier imprevisto (una guardia médica, el auto que se rompe, el lavarropas que falla) termina siendo una deuda en tarjeta con intereses del 180% anual. Con él, es solo un gasto.</p>
+    </div>
+
+    <div class="subtopic-label">¿Cuánto necesitás tener?</div>
+    <div class="card-grid">
+      <div class="card card-blue">
+        <div class="card-icon">🎯</div>
+        <h4>Meta mínima</h4>
+        <p class="text-blue fw-bold" style="font-size:1.3rem;">1 mes de gastos esenciales</p>
+        <p>Calculá: alquiler + servicios + comida básica + transporte. Ese número es tu primer objetivo. Sin esto, cualquier imprevisto te endeuda.</p>
+      </div>
+      <div class="card card-green">
+        <div class="card-icon">🏆</div>
+        <h4>Meta ideal</h4>
+        <p class="text-green fw-bold" style="font-size:1.3rem;">3 meses de gastos esenciales</p>
+        <p>Con esto podés afrontar una enfermedad, quedar sin trabajo temporalmente, o cualquier emergencia real sin que tu vida financiera colapse.</p>
+      </div>
+    </div>
+
+    <div class="subtopic-label">Ejemplo concreto en pesos — Gastos esenciales: $600.000/mes</div>
+    <div class="big-number-block">
+      <div class="big-number text-blue">$600.000</div>
+      <div class="big-number-label">Meta mínima (1 mes de gastos esenciales)</div>
+      <div style="height:1px; background:var(--border); margin:1rem 0;"></div>
+      <div class="big-number text-green">$1.800.000</div>
+      <div class="big-number-label">Meta ideal (3 meses) — donde querés llegar</div>
+    </div>
+
+    <div class="subtopic-label">¿Dónde guardarlo en Argentina 2026?</div>
+    <div class="card-grid">
+      <div class="card card-green">
+        <div class="card-icon">📈</div>
+        <h4 class="text-green">Caja de ahorro en pesos + Fondo Money Market</h4>
+        <p>Disponible en 24hs. Rinde algo (aunque no le gana a la inflación). Es accesible y real. Podés acceder desde el home banking con transferencia simple. La opción más práctica.</p>
+      </div>
+      <div class="card card-gold">
+        <div class="card-icon">💵</div>
+        <h4 class="text-gold">Cuenta en dólares (billete o digital)</h4>
+        <p>Si podés mantenerlo en dólares, protegés mejor el poder adquisitivo. Ideal para quien tiene más estabilidad o puede acceder a dólar oficial. Es la versión avanzada del fondo.</p>
+      </div>
+      <div class="card card-red">
+        <div class="card-icon">🚫</div>
+        <h4 class="text-red">Lo que NO usar</h4>
+        <p>No lo pongas en plazo fijo de largo plazo (necesitás liquidez). No lo tengas en efectivo en casa (riesgo e inflación). No lo mezcles con tu cuenta corriente de gastos.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box hb-green">
+      <div class="hb-label">🚀 Cómo construirlo si hoy tenés cero</div>
+      <p>Empezá con $5.000 por semana si podés. O con el 5% de cada ingreso que entra. No importa el monto inicial — importa que sea consistente y que <strong>no lo toques salvo emergencia real.</strong></p>
+    </div>
+
+    <div class="s-divider"></div>
+    <p class="fs-sm text-gold fw-bold">Diferencia clave: fondo de emergencia ≠ ahorro</p>
+    <p class="fs-sm" style="color:var(--text2); margin-top:0.3rem;">El ahorro es para objetivos: vacaciones, tecnología, educación. El fondo de emergencia es intocable salvo que pase algo imprevisto real. Son dos cosas distintas que van en lugares distintos.</p>
+  </section>
+
+  <!-- ═══════════════ MÓDULO 9 ═══════════════ -->
+  <section id="m9" class="module-section">
+    <div class="module-header">
+      <div class="module-num">Módulo 09</div>
+      <h2 class="module-title">Salir de deudas:<br><span class="text-green">hay un camino</span></h2>
+      <p class="module-intro">Si hoy tenés deudas en distintos lados, la sensación de agobio es real. Pero hay un orden lógico para salir, y una vez que lo entendés, el camino se vuelve claro.</p>
+    </div>
+
+    <div class="subtopic-label">Los 3 tipos de deuda que suelen convivir</div>
+    <div class="card-grid">
+      <div class="card card-red">
+        <div class="card-icon">🔥</div>
+        <h4 class="text-red">Deuda urgente (peligrosa)</h4>
+        <p>Tarjeta pagando mínimo, préstamos fintech, cuotas en mora. CFT muy alto. La deuda crece más rápido que podés pagarla. Prioridad máxima.</p>
+      </div>
+      <div class="card card-orange">
+        <div class="card-icon">⚠️</div>
+        <h4 class="text-orange">Deuda cara pero manejable</h4>
+        <p>Crédito bancario personal, cuotas con interés de tarjeta. Se puede controlar, pero hay que tener un plan claro de cancelación.</p>
+      </div>
+      <div class="card card-blue">
+        <div class="card-icon">📋</div>
+        <h4 class="text-blue">Deuda estructural</h4>
+        <p>Cuotas sin interés, deudas con familia. Suelen tener bajo o nulo costo. No son urgentes, pero hay que honrarlas.</p>
+      </div>
+    </div>
+
+    <div class="subtopic-label">Las 2 estrategias probadas para salir</div>
+    <div class="compare-wrap">
+      <div class="compare-good" style="border-color:var(--blue-dim); background:rgba(79,156,249,0.05)">
+        <div class="compare-label" style="color:var(--blue)">🧊 Método Avalancha (matemáticamente óptimo)</div>
+        <div class="compare-desc" style="color:var(--text);">
+          <p style="margin-bottom:0.5rem;">Pagás primero la deuda con mayor tasa de interés. Minimizás el costo total. Requiere más paciencia porque quizás no ves resultados rápidos.</p>
+          <p style="font-size:0.8rem; color:var(--text2);">Ejemplo: primero tarjeta (CFT 180%), después fintech (CFT 250%), después banco (TNA 80%).</p>
+        </div>
+      </div>
+      <div class="compare-good" style="border-color:var(--purple); background:rgba(167,139,250,0.05)">
+        <div class="compare-label" style="color:var(--purple)">❄️ Método Bola de Nieve (psicológicamente potente)</div>
+        <div class="compare-desc" style="color:var(--text);">
+          <p style="margin-bottom:0.5rem;">Pagás primero la deuda más pequeña (independiente del interés). La velocidad de cerrar cuentas genera motivación para seguir.</p>
+          <p style="font-size:0.8rem; color:var(--text2);">Ejemplo: cancelás primero la deuda de $30.000, luego la de $80.000, y así. Cada cancelación es una victoria.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box hb-gold">
+      <div class="hb-label">💡 ¿Cuál elegir?</div>
+      <p style="color:var(--text);">Si tenés mucha disciplina: Avalancha (ahorrás más dinero). Si necesitás motivación para arrancar o tuviste intentos fallidos: Bola de Nieve (funciona mejor psicológicamente). El mejor método es el que realmente vas a aplicar.</p>
+    </div>
+
+    <div class="subtopic-label">Cómo evitar el efecto bola de nieve mientras salís</div>
+    <ul class="checklist">
+      <li>Guardá todas las tarjetas mientras pagás las deudas. Literalmente, no las uses.</li>
+      <li>Destiná un % fijo de cada ingreso al pago de deuda (mínimo 15-20%).</li>
+      <li>No tomes nueva deuda hasta no tener la situación estabilizada.</li>
+      <li>Si recibís plata extra (bono, horas extra, venta), destiná el 50% a la deuda.</li>
+      <li>Celebrá cada deuda que cerrás. Es un hito real.</li>
+    </ul>
+
+    <div class="highlight-box hb-green">
+      <div class="hb-label">💪 La verdad sobre salir de deudas</div>
+      <blockquote>"No se sale de las deudas rápido, pero sí se sale."</blockquote>
+      <p>Con un plan concreto, la mayoría de las deudas de consumo se pueden resolver en 12 a 24 meses. El primer mes es el más difícil. El segundo ya es un poco más fácil. Y así.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MÓDULO 10 ═══════════════ -->
+  <section id="m10" class="module-section">
+    <div class="module-header">
+      <div class="module-num">Módulo 10</div>
+      <h2 class="module-title">Tu sistema personal:<br><span class="text-gold">simple, real, sustentable</span></h2>
+      <p class="module-intro">No necesitás un sistema perfecto. Necesitás un sistema que uses. Este es el cierre: cómo poner todo junto en algo que funcione en la vida real.</p>
+    </div>
+
+    <div class="highlight-box hb-gold">
+      <div class="hb-label">🧠 La regla más importante</div>
+      <blockquote>"Primero pagarte a vos mismo. Después, todo lo demás."</blockquote>
+      <p>Cuando entra el sueldo, lo primero que sale es el % que va a tu fondo o ahorro. Después pagás todo lo demás. Si lo hacés al revés, siempre "no alcanza" para ahorrar.</p>
+    </div>
+
+    <div class="subtopic-label">El sistema en 5 movimientos — ejemplo con $1.400.000</div>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h5>Entra el sueldo → inmediatamente separás</h5>
+          <p>10% al fondo de emergencia/ahorro ($140.000). Lo transferís antes de tocar el resto. Si está en otra cuenta, no lo "ves" y no lo gastás.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h5>Pagás gastos fijos primero</h5>
+          <p>Alquiler, servicios, deudas comprometidas, cuotas activas. Son $650.000. Ya saben que van. No son negociables este mes.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h5>Calculás el presupuesto variable que te queda</h5>
+          <p>$1.400.000 - $140.000 - $650.000 = $610.000 para gastos variables (comida, salidas, transporte, varios). Eso es tu "zona de juego".</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h5>Dividís ese monto por semanas</h5>
+          <p>$610.000 ÷ 4 = ~$152.000 por semana. Cada semana revisás si estás dentro de eso. Simple. No necesitás categorías detalladas.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h5>Revisión mensual de 20 minutos</h5>
+          <p>¿Qué funcionó? ¿Qué no? ¿Hay gastos fijos que puedo eliminar? ¿Alcancé la meta de ahorro? Ajustás y arrancás el mes siguiente con más información.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subtopic-label">Checklist final — ¿Estás en camino?</div>
+    <ul class="checklist">
+      <li>Sé exactamente cuánto gano por mes (neto, en mano)</li>
+      <li>Tengo listados todos mis gastos fijos del mes</li>
+      <li>Conozco mis suscripciones y cuotas activas totales</li>
+      <li>Pago el total de la tarjeta (no el mínimo)</li>
+      <li>Tengo al menos 1 mes de gastos esenciales en un lugar separado</li>
+      <li>Tengo un objetivo financiero concreto para los próximos 6 meses</li>
+      <li>Reviso mis gastos al menos 1 vez por semana</li>
+      <li>Espero 48 horas antes de hacer compras grandes no planificadas</li>
+      <li>Si tengo deudas, tengo un plan de pago claro</li>
+      <li>No tomo decisiones financieras importantes cuando estoy cansado o estresado</li>
+    </ul>
+
+    <div class="highlight-box hb-green mt-3">
+      <div class="hb-label">🏁 El cierre</div>
+      <blockquote>"No se trata de ser perfecto. Se trata de ser consistente."</blockquote>
+      <p>Vas a tener meses malos. Meses en que gastas de más. Meses en que la inflación te pega fuerte. Lo importante es volver al sistema. El sistema es el que te salva cuando la motivación no alcanza.</p>
+    </div>
+  </section>
+
+  <!-- ═══ FINAL ═══ -->
+  <section class="final-section">
+    <div class="module-num" style="justify-content:center;">Fin del curso</div>
+    <h2>Empezá hoy,<br><span class="text-gold">no mañana.</span></h2>
+    <p>Ya tenés todo lo que necesitás. El único paso que falta es el primero: abrí una hoja en blanco y anotá tus ingresos y gastos de este mes.</p>
+    <a href="#hero" class="hero-cta" style="margin: 0 auto;">Volver al inicio ↑</a>
+    <div style="margin-top:3rem; padding-top:2rem; border-top:1px solid var(--border); color:var(--text3); font-size:0.78rem;">
+      <p>Curso de Finanzas Personales · Argentina 2026 · Inspirado en la claridad y el estilo de divulgación de Santiago Bilinkis</p>
+      <p class="mt-1">Los números son aproximados y varían según entidad. Siempre verificá tasas actuales antes de tomar una decisión financiera.</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // ══ SIDEBAR TOGGLE (mobile) ══
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('show');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+  }
+
+  // ══ ACTIVE NAV + PROGRESS ══
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+  const progressFill = document.getElementById('progress-fill');
+  const progressPct = document.getElementById('progress-pct');
+  const totalSections = sections.length;
+
+  function onScroll() {
+    const scrollY = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = Math.round((scrollY / docH) * 100);
+    progressFill.style.width = pct + '%';
+    progressPct.textContent = pct + '%';
+
+    let current = '';
+    sections.forEach(section => {
+      const sTop = section.offsetTop - 120;
+      if (scrollY >= sTop) current = section.getAttribute('id');
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ══ NAV LINK CLICKS (close mobile sidebar) ══
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 760) closeSidebar();
+    });
+  });
+
+  // ══ INTERSECTION OBSERVER for animation ══
+  const moduleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.05 });
+
+  document.querySelectorAll('.module-section').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    moduleObserver.observe(el);
+  });
+</script>
+</body>
+</html>
